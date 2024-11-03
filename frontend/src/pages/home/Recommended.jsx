@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 import BookCard from '../books/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
+import { useGetBooksQuery } from '../../redux/features/books/booksApi';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -10,24 +11,25 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const Recommended = () => {
+  // const [books, setBooks] = useState([]);
 
-  const [books, setBooks] = useState([]);
+  // useEffect( () => {
+  //   fetch("books.json")
+  //     .then(res => res.json())
+  //     .then(data => setBooks(data))
+  //     .catch(err => console.log(err));
 
-  useEffect( () => {
-    fetch("books.json")
-      .then(res => res.json())
-      .then(data => setBooks(data))
-      .catch(err => console.log(err));
-    
-  }, []);
+  // }, []);
+
+  var { data: books = [] } = useGetBooksQuery();
 
   return (
-      <Box sx={{ padding: 4 }}>
+    <Box sx={{ padding: 4 }}>
       <Typography variant="h5" component="h2" gutterBottom>
         Recommended for you
       </Typography>
 
-     <Swiper
+      <Swiper
         slidesPerView={1}
         spaceBetween={30}
         navigation
@@ -52,15 +54,22 @@ const Recommended = () => {
         modules={[Navigation, Pagination]}
         className="mySwiper"
       >
-        <Box sx={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 2 }}>
-          {books?.length > 0 && books.slice(0, 6).map((book) => (
-            <SwiperSlide key={book.id}>
-              <BookCard book={book} />
-            </SwiperSlide>
-          ))}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
+          {books?.length > 0 &&
+            books.slice(3, 9).map((book) => (
+              <SwiperSlide key={book.id}>
+                <BookCard book={book} />
+              </SwiperSlide>
+            ))}
         </Box>
-        </Swiper>
-      
+      </Swiper>
     </Box>
   );
 };

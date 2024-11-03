@@ -1,21 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { RouterProvider } from 'react-router-dom'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.jsx";
+import "./index.css";
+import { RouterProvider } from "react-router-dom";
 /* ThemeProvider: This is imported from MUI and is used to wrap your application in a Material UI theme,
    allowing you to apply a consistent design(colors, typography, etc.) across your app.
 */
-import { ThemeProvider } from '@mui/material/styles';
-import router from './routers/router.jsx'
+import { ThemeProvider } from "@mui/material/styles";
+import router from "./routers/router.jsx";
 /* CssBaseline: This is imported from MUI and is used to apply a global CSS reset to your application.
    It helps ensure consistency across browsers and devices.
 */
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
 /* theme: This is the custom theme you created in the theme.js file.
    It allows you to customize the colors, typography, and other design aspects of your app.
 */
-import theme from './theme'; // Import the custom theme
+import theme from "./theme"; // Import the custom theme
+
+import { Provider } from "react-redux";
+
+import { store } from "./redux/store.js";
+import { AuthProvide } from "./context/AuthContext";
 
 // The code below sets up the main structure of a React application using various libraries and components.
 
@@ -45,12 +50,13 @@ import theme from './theme'; // Import the custom theme
 
 // This structure ensures that the entire application has access to the theme, routing, and other necessary contexts.
 
-createRoot(document.getElementById('root')).render(
- 
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />  {/* Global CSS reset for Material UI */}
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </StrictMode>
-)
+createRoot(document.getElementById("root")).render(
+  <AuthProvide>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline /> {/* Global CSS reset for Material UI */}
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
+  </AuthProvide>
+);
