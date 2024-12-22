@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import getBaseUrl from '../../../utils/baseUrl';
 
-export const ordersApi = createApi({
-  reducerPath: 'ordersApi',
+export const adminApi = createApi({
+  reducerPath: 'adminApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${getBaseUrl()}/api/orders`,
+    baseUrl: `${getBaseUrl()}/api/admin`,
     prepareHeaders: (headers, { getState }) => {
       // Get token from the state (or any other storage)
       // const token = getState().auth?.token;
@@ -18,21 +18,13 @@ export const ordersApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ['Orders'], // Define the tag type
+  tagTypes: ['AdminStats'], // Define the tag type
   endpoints: (builder) => ({
-    
-    createOrder: builder.mutation({
-      query: (newOrder) => ({
-        url: '/',
-        method: 'POST',
-        body: newOrder,
-      }),
-    }),
-    getOrderByEmail: builder.query({
-      query: (email) => `/${email}`,
-      providesTags: ['Orders']
-    }),
+    getAdminStats: builder.query({
+      query: () => '/',
+      providesTags: ["AdminStats"]
+    })
   }),
 });
 
-export const {  useCreateOrderMutation, useGetOrderByEmailQuery } = ordersApi;
+export const { useGetAdminStatsQuery } = adminApi;

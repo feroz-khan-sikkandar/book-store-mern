@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Grid,
@@ -29,11 +30,13 @@ const CheckoutSchema = Yup.object().shape({
 // Checkout Page Component
 function CheckoutPage() {
   const { cartItems } = useSelector((state) => state.cart);
+  console.log("cartItems", cartItems);
   const totalPrice = cartItems
     .reduce((acc, item) => acc + item?.newPrice, 0)
     .toFixed(2);
 
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -46,7 +49,7 @@ function CheckoutPage() {
       expirationDate: "",
       cvv: "",
       productIds: cartItems?.map((item) => item?._id),
-      totalPrice
+      totalPrice,
     },
     validationSchema: CheckoutSchema,
     onSubmit: async (values) => {
@@ -54,6 +57,7 @@ function CheckoutPage() {
       alert("Order submitted successfully!");
 
       await createOrder(values);
+      navigate("/orderDetails");
     },
   });
 

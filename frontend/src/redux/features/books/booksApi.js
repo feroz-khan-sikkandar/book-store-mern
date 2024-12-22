@@ -26,7 +26,7 @@ export const bookApi = createApi({
     }),
     getBookById: builder.query({
       query: (id) => `/${id}`,
-      providesTags: (result, error, id) => [{type: 'Books', id}]
+      providesTags: (result, error, id) => [{ type: 'Books', id }]
     }),
     addBook: builder.mutation({
       query: (newBook) => ({
@@ -41,7 +41,7 @@ export const bookApi = createApi({
         url: `/${id}`,
         method: 'PUT',
         body: updateData,
-        headers: { 'Content-Type:' : 'application-json' }
+        headers: { 'Content-Type:': 'application-json' }
       }),
       invalidatesTags: (result, error, { id }) => [{ type: 'Books', id }]
     }),

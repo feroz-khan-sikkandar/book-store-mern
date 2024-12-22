@@ -8,10 +8,10 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-
+import axios from 'axios';
+import getBaseUrl from "../utils/baseUrl";
 
 const AuthContext = createContext();
-
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -67,12 +67,27 @@ export const AuthProvide = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
+  const adminLogin = async (userName, password) => {
+    console.log(userName, password);
+    try {
+      const response = await axios.post(`${getBaseUrl()}/api/auth`, {
+        userName,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to login admin:', error);
+      throw error;
+    }
+  };
+
   const value = {
     currentUser,
     registerUser,
     loginUser,
     signInWithGoogle,
-    logout
+    logout,
+    adminLogin
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

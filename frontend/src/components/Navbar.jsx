@@ -87,7 +87,7 @@ const Navbar = () => {
                   <MenuItem onClick={() => handleMenuItemClick("/dashboard")}>
                     Dashboard
                   </MenuItem>
-                  <MenuItem onClick={() => handleMenuItemClick("/orders")}>
+                  <MenuItem onClick={() => handleMenuItemClick("/orderDetails")}>
                     Orders
                   </MenuItem>
                   <MenuItem onClick={() => handleMenuItemClick("/cart")}>

@@ -4,6 +4,7 @@ import banner from '../../assets/banner.png'
 import { useTheme } from '@mui/material/styles';
 
 const Banner = () => {
+
   const theme = useTheme();
   return (
     <Box sx={{ display: 'flex',  flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', justifyContent: 'space-between', bgcolor: 'background.paper', py: 8, px: 4 }}>
@@ -32,6 +33,8 @@ const Banner = () => {
         />
       </Box>
     </Box>
+
+    
   )
 }
 

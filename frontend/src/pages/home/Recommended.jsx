@@ -22,7 +22,8 @@ const Recommended = () => {
   // }, []);
 
   var { data: books = [] } = useGetBooksQuery();
-
+  console.log(books);
+  
   return (
     <Box sx={{ padding: 4 }}>
       <Typography variant="h5" component="h2" gutterBottom>

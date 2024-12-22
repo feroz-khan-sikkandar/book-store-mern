@@ -6,6 +6,11 @@ import CartPage from "../pages/books/CartPage";
 import Checkout from "../pages/books/CheckoutPage";
 import SingleBook from "../pages/books/SingleBook";
 import PrivateRoute from "./privateRoute";
+import OrderInfo from "../pages/books/OrderInfo";
+import AdminRoute from "./AdminRoute";
+import AdminLogin from "../components/AdminLogin";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
+import Dashboard from "../pages/dashboard/Dashboard";
 // The code below defines the structure of the application's routing using React Router.
 
 // createBrowserRouter: This function is imported from react-router-dom and is used to create a router object.
@@ -46,6 +51,10 @@ const router = createBrowserRouter([
         path: "/books/:id",
         element: <SingleBook />,
       },
+      {
+        path: "/orderDetails",
+        element: <OrderInfo />,
+      },
     ],
   },
   {
@@ -55,6 +64,36 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Login isSignUp />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLogin />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
+    children: [
+      {
+        path: "",
+        element: <AdminRoute> <Dashboard /></AdminRoute>,
+      },
+      {
+        path: "add-new-book",
+        element: <div>Add new book</div>,
+      },
+      {
+        path: "edit-book/:id",
+        element: <div>Edit book</div>,
+      },
+      {
+        path: "manage-books",
+        element: <div>Manage Books</div>,
+      },
+    ],
   },
 ]);
 
